@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "fuwafuwa.time.taskmaster"
+    namespace = "fuwafuwa.time.core"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "fuwafuwa.time.taskmaster"
+        applicationId = "fuwafuwa.time.core"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-    implementation(":core")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
