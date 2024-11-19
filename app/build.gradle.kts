@@ -57,7 +57,8 @@ dependencies {
     implementation(project(":core_data"))
 
     // Features
-    implementation(project(":apps_info"))
+    implementation(project(":apps_info:api"))
+    implementation(project(":apps_info:impl"))
 
     implementation("com.google.dagger:hilt-android:2.50")
     implementation("androidx.room:room-ktx:2.6.1")
