@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import fuwafuwa.time.core_data.dao.AppDao
 import fuwafuwa.time.core_data.db.TaskMasterDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +29,12 @@ interface AppModule {
             )
                 .fallbackToDestructiveMigration()
                 .build()
+        }
+
+        @Singleton
+        @Provides
+        fun provideAppDao(database: TaskMasterDatabase): AppDao {
+            return database.getAppDao()
         }
 
         @Singleton

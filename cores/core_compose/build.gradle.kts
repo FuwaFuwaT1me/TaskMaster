@@ -2,24 +2,20 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = "fuwafuwa.time.taskmaster"
+    namespace = "fuwafuwa.time.core_compose"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "fuwafuwa.time.taskmaster"
+        applicationId = "fuwafuwa.time.core_compose"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -38,34 +34,21 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
-    // Cores
     implementation(project(":core"))
-    implementation(project(":core_data"))
-    implementation(project(":core_compose"))
 
-    // Features
-    implementation(project(":apps_info:api"))
-    implementation(project(":apps_info:impl"))
+    implementation("com.google.code.gson:gson:2.10.1")
 
-    implementation("com.google.dagger:hilt-android:2.50")
-    implementation("androidx.room:room-ktx:2.6.1")
-    kapt("com.google.dagger:hilt-compiler:2.50")
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.6.7")
+
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+
+    implementation("androidx.navigation:navigation-compose:2.8.0-beta02")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
