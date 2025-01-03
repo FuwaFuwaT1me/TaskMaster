@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
@@ -9,11 +9,31 @@ plugins {
 
 android {
     namespace = "fuwafuwa.time.apps_info_impl"
+    compileSdk = 35
+
+    defaultConfig {
+        minSdk = 26
+        targetSdk = 35
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.13"
+    }
 }
 
 dependencies {
     implementation(project(":apps_info:api"))
     implementation(project(":core"))
+    implementation(project(":core_data"))
     implementation(project(":core_compose"))
 
     implementation("com.google.dagger:hilt-android:2.50")

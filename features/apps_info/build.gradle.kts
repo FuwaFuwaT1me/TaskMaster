@@ -1,10 +1,22 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
     namespace = "fuwafuwa.time.apps_info"
+    compileSdk = 35
+
+    defaultConfig {
+        minSdk = 26
+        targetSdk = 35
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {

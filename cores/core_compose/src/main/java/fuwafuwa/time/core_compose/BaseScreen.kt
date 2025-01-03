@@ -13,6 +13,7 @@ import fuwafuwa.time.core.mvi.api.State
 import fuwafuwa.time.core.mvi.impl.BaseNavigationEvent
 import fuwafuwa.time.core.mvi.impl.BaseViewModel
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun BaseScreen(
     navController: NavController,
@@ -35,7 +36,9 @@ fun BaseScreen(
         }
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize()) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize()
+    ) {
         content(navController)
     }
 }
