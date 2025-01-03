@@ -1,4 +1,4 @@
-package fuwafuwa.time.utli.internet
+package fuwafuwa.time.utli.network
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

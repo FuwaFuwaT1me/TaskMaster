@@ -35,6 +35,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":core_data"))
     implementation(project(":core_compose"))
+    implementation(project(":util"))
 
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-compiler:2.50")
