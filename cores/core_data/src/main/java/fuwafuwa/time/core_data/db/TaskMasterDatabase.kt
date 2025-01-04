@@ -7,7 +7,7 @@ import fuwafuwa.time.core_data.entity.app.AppDto
 
 @Database(entities = [
     AppDto::class
-], version = 4)
+], version = 5)
 abstract class TaskMasterDatabase: RoomDatabase() {
 
     abstract fun getAppDao(): AppDao

@@ -7,8 +7,19 @@ fun App.toDto() = AppDto(
     packageName = packageName,
     processName = processName,
     apkSize = apkSize,
-    appFolderSize = appFolderSize,
+    appSize = appSize,
+    dataSize = dataSize,
+    cacheSize = cacheSize,
     iconPath = iconPath
 )
 
-fun AppDto.toModel() = App(name, packageName, processName, apkSize, appFolderSize, iconPath)
+fun AppDto.toModel() = App(
+    name,
+    packageName,
+    processName,
+    apkSize,
+    appSize,
+    dataSize,
+    cacheSize,
+    iconPath
+)

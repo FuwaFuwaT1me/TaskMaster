@@ -1,23 +1,21 @@
 package fuwafuwa.time.apps_info_impl.app
 
 import android.annotation.SuppressLint
-import android.app.usage.StorageStatsManager
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import androidx.core.graphics.drawable.toBitmap
 import dagger.hilt.android.qualifiers.ApplicationContext
 import fuwafuwa.time.core.model.app.App
 import fuwafuwa.time.utli.bitmap.saveAsPngToFile
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
 class AppsProvider @Inject constructor(
     @ApplicationContext private val applicationContext: Context,
-    private val packageManager: PackageManager
+    private val packageManager: PackageManager,
+    private val appStorageStatsProvider: AppStorageStatsProvider =
+        AppStorageStatsProvider(applicationContext)
 ) {
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -25,12 +23,16 @@ class AppsProvider @Inject constructor(
         val packages = packageManager.getInstalledApplications(0)
 
         return packages.map { appInfo ->
+            val storageStats = appStorageStatsProvider.get(appInfo)
+
             App(
                 name = getAppName(appInfo),
                 packageName = appInfo.packageName,
                 processName = appInfo.processName,
                 apkSize = getFolderSizeMb(appInfo.sourceDir),
-                appFolderSize = getFolderSizeMb(appInfo.dataDir),
+                appSize = storageStats.appBytes / MB_CONVERSION_FACTOR,
+                dataSize = (storageStats.dataBytes - storageStats.cacheBytes) / MB_CONVERSION_FACTOR,
+                cacheSize = storageStats.cacheBytes / MB_CONVERSION_FACTOR,
                 iconPath = getIconImagePath(appInfo)
             )
         }
@@ -58,6 +60,6 @@ class AppsProvider @Inject constructor(
 
     private companion object {
 
-        private const val MB_CONVERSION_FACTOR = 1024.0 * 1024
+        private const val MB_CONVERSION_FACTOR = 1000.0 * 1000
     }
 }

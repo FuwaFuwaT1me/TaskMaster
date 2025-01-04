@@ -2,6 +2,7 @@ package fuwafuwa.time.core_data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import fuwafuwa.time.core_data.entity.app.AppDto
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +16,6 @@ interface AppDao {
     @Insert
     suspend fun putApp(app: AppDto)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun putApps(apps: List<AppDto>)
 }

@@ -5,6 +5,8 @@ data class App(
     val packageName: String,
     val processName: String,
     val apkSize: Double,
-    val appFolderSize: Double,
+    val appSize: Double,
+    val dataSize: Double,
+    val cacheSize: Double,
     val iconPath: String
 )

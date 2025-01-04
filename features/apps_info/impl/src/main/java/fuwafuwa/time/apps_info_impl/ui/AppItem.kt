@@ -1,15 +1,13 @@
 package fuwafuwa.time.apps_info_impl.ui
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -21,10 +19,17 @@ import fuwafuwa.time.core.model.app.App
 import fuwafuwa.time.utli.number.round
 
 @Composable
-fun AppItem(app: App) {
+fun AppItem(
+    app: App,
+    onClick: () -> Unit
+) {
     val isNameExist = app.name != null
 
-    Row {
+    Row(
+        Modifier.clickable {
+            onClick()
+        }
+    ) {
         AsyncImage(
             modifier = Modifier
                 .weight(0.15f),
@@ -59,10 +64,13 @@ fun AppItem(app: App) {
             modifier = Modifier.weight(0.25f)
         ) {
             Text(
-                text = "Apk = ${app.apkSize.round(2)}"
+                text = "App = ${app.appSize.round(2)}"
             )
             Text(
-                text = "Folder = ${app.appFolderSize.round(2)}"
+                text = "Data = ${app.dataSize.round(2)}"
+            )
+            Text(
+                text = "Cache = ${app.cacheSize.round(2)}"
             )
         }
     }
