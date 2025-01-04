@@ -1,27 +1,24 @@
-package fuwafuwa.time.taskmaster.permission
+package fuwafuwa.time.utli.permission
 
-import android.app.Activity
 import android.app.AppOpsManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 
-class GetUsageStatsPermission : Permission {
+object UsageStatsPermission : Permission {
 
-    override fun grantIfNeeded(activity: Activity) {
-        if (!checkUsageStatsPermission(activity)) {
-            launchIntent(activity)
+    override val permissionType = PermissionType.UsageStats
+
+    override fun grantIfNeeded(activity: ComponentActivity) {
+        if (!checkIsGranted(activity)) {
+            launchIntent()
         }
     }
 
-    private fun launchIntent(activity: Activity) {
-        val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
-        activity.startActivity(intent)
-    }
-
-    private fun checkUsageStatsPermission(context: Context) : Boolean {
+    override fun checkIsGranted(context: Context) : Boolean {
         val appOpsManager = context.getSystemService(AppCompatActivity.APP_OPS_SERVICE)
                 as AppOpsManager
 
@@ -37,5 +34,11 @@ class GetUsageStatsPermission : Permission {
             )
         }
         return mode == AppOpsManager.MODE_ALLOWED
+    }
+
+    private fun launchIntent() {
+        val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+        val activityResultLauncher = PermissionHolder.getActivityResultLauncher()
+        activityResultLauncher?.launch(intent)
     }
 }

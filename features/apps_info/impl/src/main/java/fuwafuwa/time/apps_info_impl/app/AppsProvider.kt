@@ -4,10 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.core.graphics.drawable.toBitmap
 import dagger.hilt.android.qualifiers.ApplicationContext
 import fuwafuwa.time.core.model.app.App
 import fuwafuwa.time.utli.bitmap.saveAsPngToFile
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import java.io.File
 import javax.inject.Inject
 
@@ -19,22 +22,35 @@ class AppsProvider @Inject constructor(
 ) {
 
     @SuppressLint("QueryPermissionsNeeded")
-    fun provide(): List<App> {
-        val packages = packageManager.getInstalledApplications(0)
+    suspend fun provide(): List<App> {
+        return coroutineScope {
+            val packages = packageManager.getInstalledApplications(0)
 
-        return packages.map { appInfo ->
-            val storageStats = appStorageStatsProvider.get(appInfo)
+            packages.map { appInfo ->
+                async {
+                    val storageStats = appStorageStatsProvider.get(appInfo)
+                    val packageInfo = packageManager.getPackageInfo(appInfo.packageName, 0)
 
-            App(
-                name = getAppName(appInfo),
-                packageName = appInfo.packageName,
-                processName = appInfo.processName,
-                apkSize = getFolderSizeMb(appInfo.sourceDir),
-                appSize = storageStats.appBytes / MB_CONVERSION_FACTOR,
-                dataSize = (storageStats.dataBytes - storageStats.cacheBytes) / MB_CONVERSION_FACTOR,
-                cacheSize = storageStats.cacheBytes / MB_CONVERSION_FACTOR,
-                iconPath = getIconImagePath(appInfo)
-            )
+                    App(
+                        name = getAppName(appInfo),
+                        packageName = appInfo.packageName,
+                        processName = appInfo.processName,
+                        apkSize = getFolderSizeMb(appInfo.sourceDir),
+                        appSize = storageStats.appBytes / MB_CONVERSION_FACTOR,
+                        dataSize = (storageStats.dataBytes - storageStats.cacheBytes) / MB_CONVERSION_FACTOR,
+                        cacheSize = storageStats.cacheBytes / MB_CONVERSION_FACTOR,
+                        iconPath = getIconImagePath(appInfo),
+                        versionName = packageInfo.versionName,
+                        versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                            packageInfo.longVersionCode
+                        } else {
+                            packageInfo.versionCode.toLong()
+                        }
+                    )
+                }
+            }.map { deferred ->
+                deferred.await()
+            }
         }
     }
 

@@ -1,6 +1,5 @@
 package fuwafuwa.time.core_data.entity.app
 
-import android.graphics.drawable.Drawable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -14,5 +13,7 @@ data class AppDto(
     val appSize: Double,
     val dataSize: Double,
     val cacheSize: Double,
-    val iconPath: String
+    val iconPath: String,
+    val versionName: String?,
+    val versionCode: Long,
 )

@@ -10,7 +10,9 @@ fun App.toDto() = AppDto(
     appSize = appSize,
     dataSize = dataSize,
     cacheSize = cacheSize,
-    iconPath = iconPath
+    iconPath = iconPath,
+    versionName = versionName,
+    versionCode = versionCode,
 )
 
 fun AppDto.toModel() = App(
@@ -21,5 +23,7 @@ fun AppDto.toModel() = App(
     appSize,
     dataSize,
     cacheSize,
-    iconPath
+    iconPath,
+    versionName,
+    versionCode,
 )

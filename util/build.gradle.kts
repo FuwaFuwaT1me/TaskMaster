@@ -31,5 +31,6 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.50")
     implementation(libs.androidx.lifecycle.viewmodel.android)
+    implementation(libs.androidx.appcompat)
     kapt("com.google.dagger:hilt-compiler:2.50")
 }

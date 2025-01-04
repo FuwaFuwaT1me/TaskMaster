@@ -1,5 +1,7 @@
 package fuwafuwa.time.apps_info_impl.mvi
 
+import android.util.Log
+import androidx.activity.ComponentActivity
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fuwafuwa.time.apps_info_api.navigation.AppsInfoNavEvent
@@ -17,6 +19,12 @@ class AppsInfoViewModel @Inject constructor(
     fun getApps() {
         viewModelScope.launch(Dispatchers.IO) {
             model.onAction(GetAppsAction)
+        }
+    }
+
+    fun grantUsageStatsPermission(activity: ComponentActivity) {
+        viewModelScope.launch {
+            model.onAction(GrantUsageStatsPermission(activity))
         }
     }
 }

@@ -8,5 +8,7 @@ data class App(
     val appSize: Double,
     val dataSize: Double,
     val cacheSize: Double,
-    val iconPath: String
+    val iconPath: String,
+    val versionName: String?,
+    val versionCode: Long,
 )

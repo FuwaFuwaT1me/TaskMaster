@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import fuwafuwa.time.core_data.dao.AppDao
+import fuwafuwa.time.core_data.dao.PermissionConfigDao
 import fuwafuwa.time.core_data.db.TaskMasterDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +36,12 @@ interface AppModule {
         @Provides
         fun provideAppDao(database: TaskMasterDatabase): AppDao {
             return database.getAppDao()
+        }
+
+        @Singleton
+        @Provides
+        fun providePermissionConfigDao(database: TaskMasterDatabase): PermissionConfigDao {
+            return database.getPermissionConfigDao()
         }
 
         @Singleton

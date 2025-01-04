@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import fuwafuwa.time.apps_info_impl.mvi.AppsInfoState
+import fuwafuwa.time.core.model.permission.PermissionConfig
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -20,7 +21,8 @@ interface AppsInfoModule {
         @Provides
         fun provideDefaultState(): AppsInfoState {
             return AppsInfoState(
-                apps = emptyList()
+                apps = emptyList(),
+                permissionConfig = PermissionConfig.Builder().build()
             )
         }
 
