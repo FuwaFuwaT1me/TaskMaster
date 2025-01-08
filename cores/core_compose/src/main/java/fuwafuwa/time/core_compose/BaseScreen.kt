@@ -2,6 +2,7 @@ package fuwafuwa.time.core_compose
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

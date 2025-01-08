@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -26,8 +27,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import fuwafuwa.time.core.model.app.App
+import fuwafuwa.time.core_compose.theme.LightGrayBlue
 import fuwafuwa.time.utli.bitmap.saveAsPngToFile
-import fuwafuwa.time.utli.number.round
 import java.io.File
 
 @Composable
@@ -40,7 +41,7 @@ fun AppItem(
     Row(
         modifier = Modifier
             .background(
-                color = Color(222, 233, 236),
+                color = LightGrayBlue,
                 shape = RoundedCornerShape(20.dp)
             )
             .padding(4.dp)
@@ -65,6 +66,7 @@ fun AppItem(
 
         Column(
             modifier = Modifier.weight(0.6f)
+                .align(Alignment.CenterVertically)
         ) {
             if (isNameExist) {
                 Text(
@@ -75,7 +77,8 @@ fun AppItem(
             Text(
                 text = app.packageName,
                 fontSize = 12.sp,
-                fontWeight = if (isNameExist) FontWeight.Normal else FontWeight.Bold
+                fontWeight = if (isNameExist) FontWeight.Normal else FontWeight.Bold,
+                lineHeight = 12.sp
             )
             Text(
                 text = "Version: ${app.versionName}",
@@ -85,19 +88,13 @@ fun AppItem(
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        Column(
-            modifier = Modifier.weight(0.25f)
-        ) {
-            Text(
-                text = "App = ${app.appSize.round(2)}"
-            )
-            Text(
-                text = "Data = ${app.dataSize.round(2)}"
-            )
-            Text(
-                text = "Cache = ${app.cacheSize.round(2)}"
-            )
-        }
+        AppSizeBar(
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+            app = app
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
     }
 }
 
@@ -120,10 +117,10 @@ fun AppItemPreview() {
             name = "K-on beat game",
             packageName = "k.on.fuwafuwatime",
             processName = "k.process.on",
-            apkSize = 12.56,
-            appSize = 38.8,
-            dataSize = 38.21,
-            cacheSize = 42.1238,
+            apkSize = 1256,
+            appSize = 388,
+            dataSize = 3821,
+            cacheSize = 421238,
             iconPath = file.absolutePath,
             versionName = "1.25.7.8.20",
             versionCode = 256

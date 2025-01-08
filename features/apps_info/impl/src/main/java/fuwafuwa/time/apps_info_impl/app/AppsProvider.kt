@@ -36,9 +36,9 @@ class AppsProvider @Inject constructor(
                         packageName = appInfo.packageName,
                         processName = appInfo.processName,
                         apkSize = getFolderSizeMb(appInfo.sourceDir),
-                        appSize = storageStats.appBytes / MB_CONVERSION_FACTOR,
-                        dataSize = (storageStats.dataBytes - storageStats.cacheBytes) / MB_CONVERSION_FACTOR,
-                        cacheSize = storageStats.cacheBytes / MB_CONVERSION_FACTOR,
+                        appSize = storageStats.appBytes,
+                        dataSize = (storageStats.dataBytes - storageStats.cacheBytes),
+                        cacheSize = storageStats.cacheBytes,
                         iconPath = getIconImagePath(appInfo),
                         versionName = packageInfo.versionName,
                         versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -70,8 +70,8 @@ class AppsProvider @Inject constructor(
         return file.absolutePath
     }
 
-    private fun getFolderSizeMb(path: String): Double {
-        return File(path).length() / MB_CONVERSION_FACTOR
+    private fun getFolderSizeMb(path: String): Long {
+        return File(path).length()
     }
 
     private companion object {

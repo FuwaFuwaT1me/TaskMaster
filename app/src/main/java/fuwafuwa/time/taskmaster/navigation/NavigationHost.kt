@@ -16,10 +16,10 @@ fun NavigationHost() {
         navController = navController,
         startDestination = AppsInfoNavScreen
     ) {
-        backStackReaderScenario(navController)
+        appsInfoNavScenario(navController)
     }
 }
 
-private fun NavGraphBuilder.backStackReaderScenario(navController: NavController) {
+private fun NavGraphBuilder.appsInfoNavScenario(navController: NavController) {
     appsInfoNavRoot(navController)
 }
