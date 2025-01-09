@@ -5,8 +5,12 @@ import fuwafuwa.time.core.mvi.api.Action
 
 sealed interface AppsInfoAction : Action
 
-data object GetAppsAction : AppsInfoAction
+data object UpdateAppsAction : AppsInfoAction
 
 data class GrantUsageStatsPermission(
     val activity: ComponentActivity
+) : AppsInfoAction
+
+data class SearchForApps(
+    val searchString: String
 ) : AppsInfoAction

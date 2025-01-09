@@ -22,7 +22,10 @@ interface AppsInfoModule {
         fun provideDefaultState(): AppsInfoState {
             return AppsInfoState(
                 apps = emptyList(),
-                permissionConfig = PermissionConfig.Builder().build()
+                permissionConfig = PermissionConfig.Builder().build(),
+                searchString = "",
+                filteredApps = emptyList(),
+                searchInProgress = false
             )
         }
 

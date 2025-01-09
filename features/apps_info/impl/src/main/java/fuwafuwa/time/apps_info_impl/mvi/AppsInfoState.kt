@@ -6,5 +6,8 @@ import fuwafuwa.time.core.mvi.api.State
 
 data class AppsInfoState(
     val apps: List<App>,
-    val permissionConfig: PermissionConfig
+    val permissionConfig: PermissionConfig,
+    val searchString: String,
+    val filteredApps: List<App>,
+    val searchInProgress: Boolean,
 ) : State

@@ -5,9 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class AppDto(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey val packageName: String,
     val name: String?,
-    val packageName: String,
     val processName: String,
     val apkSize: Long,
     val appSize: Long,

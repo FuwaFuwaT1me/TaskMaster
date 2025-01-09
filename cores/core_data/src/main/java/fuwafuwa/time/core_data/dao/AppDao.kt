@@ -13,6 +13,9 @@ interface AppDao {
     @Query("SELECT * FROM AppDto")
     fun getApps(): Flow<List<AppDto>>
 
+    @Query("SELECT * FROM AppDto WHERE packageName LIKE '%' || :substring || '%' OR name LIKE '%' || :substring || '%'")
+    suspend fun getAppsBySubstring(substring: String): List<AppDto>
+
     @Insert
     suspend fun putApp(app: AppDto)
 
