@@ -10,7 +10,7 @@ import fuwafuwa.time.core_data.entity.permission.PermissionConfigDto
 @Database(entities = [
     AppDto::class,
     PermissionConfigDto::class,
-], version = 10)
+], version = 12)
 abstract class TaskMasterDatabase: RoomDatabase() {
 
     abstract fun getAppDao(): AppDao

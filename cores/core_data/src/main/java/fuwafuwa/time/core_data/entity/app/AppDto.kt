@@ -6,12 +6,13 @@ import androidx.room.PrimaryKey
 @Entity
 data class AppDto(
     @PrimaryKey val packageName: String,
-    val name: String?,
+    val name: String,
     val processName: String,
     val apkSize: Long,
     val appSize: Long,
     val dataSize: Long,
     val cacheSize: Long,
+    val totalSize: Long,
     val iconPath: String,
     val versionName: String?,
     val versionCode: Long,

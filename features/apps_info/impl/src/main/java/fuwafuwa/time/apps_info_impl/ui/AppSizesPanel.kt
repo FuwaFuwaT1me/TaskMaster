@@ -58,6 +58,7 @@ fun AppSizeBarPreview() {
             appSize = 1,
             dataSize = 2,
             cacheSize = 3,
+            totalSize = 123,
             iconPath = "",
             versionName = "1.25.7.8.20",
             versionCode = 256

@@ -31,10 +31,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":apps_info:api"))
     implementation(project(":core"))
     implementation(project(":core_data"))
     implementation(project(":core_compose"))
+    implementation(project(":apps_info:api"))
     implementation(project(":util"))
 
     implementation("com.google.dagger:hilt-android:2.50")
@@ -52,6 +52,8 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+
+    implementation("androidx.compose.material:material-icons-extended-android:1.7.6")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

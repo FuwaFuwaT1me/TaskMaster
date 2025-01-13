@@ -39,6 +39,7 @@ class AppsProvider @Inject constructor(
                         appSize = storageStats.appBytes,
                         dataSize = (storageStats.dataBytes - storageStats.cacheBytes),
                         cacheSize = storageStats.cacheBytes,
+                        totalSize = storageStats.appBytes + storageStats.dataBytes,
                         iconPath = getIconImagePath(appInfo),
                         versionName = packageInfo.versionName,
                         versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -54,10 +55,8 @@ class AppsProvider @Inject constructor(
         }
     }
 
-    private fun getAppName(appInfo: ApplicationInfo): String? {
-        return appInfo.loadLabel(packageManager).toString().takeIf {
-            it.isNotEmpty() && it != appInfo.packageName
-        }
+    private fun getAppName(appInfo: ApplicationInfo): String {
+        return appInfo.loadLabel(packageManager).toString()
     }
 
     private fun getIconImagePath(appInfo: ApplicationInfo): String {

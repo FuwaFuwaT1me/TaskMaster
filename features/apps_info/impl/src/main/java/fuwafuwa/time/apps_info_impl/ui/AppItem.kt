@@ -36,15 +36,15 @@ fun AppItem(
     app: App,
     onClick: () -> Unit
 ) {
-    val isNameExist = app.name != null
+    val isNameExist = app.name != app.packageName
 
     Row(
         modifier = Modifier
             .background(
                 color = LightGrayBlue,
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(14.dp)
             )
-            .padding(4.dp)
+            .padding(horizontal = 4.dp, vertical = 8.dp)
             .clickable {
                 onClick()
             }
@@ -76,9 +76,9 @@ fun AppItem(
             }
             Text(
                 text = app.packageName,
-                fontSize = 12.sp,
+                fontSize = if (isNameExist) 12.sp else 16.sp,
                 fontWeight = if (isNameExist) FontWeight.Normal else FontWeight.Bold,
-                lineHeight = 12.sp
+                lineHeight = if (isNameExist) 12.sp else 16.sp
             )
             Text(
                 text = "Version: ${app.versionName}",
@@ -121,6 +121,7 @@ fun AppItemPreview() {
             appSize = 388,
             dataSize = 3821,
             cacheSize = 421238,
+            totalSize = 123123,
             iconPath = file.absolutePath,
             versionName = "1.25.7.8.20",
             versionCode = 256
