@@ -1,15 +1,16 @@
 package fuwafuwa.time.apps_info_impl.mvi
 
+import android.util.Log
 import fuwafuwa.time.apps_info_api.navigation.AppsInfoNavEvent
 import fuwafuwa.time.apps_info_impl.usecase.SortingAppsUseCase
 import fuwafuwa.time.apps_info_impl.usecase.UpdateAppsUseCase
 import fuwafuwa.time.apps_info_impl.usecase.GetPermissionConfigUseCase
 import fuwafuwa.time.apps_info_impl.usecase.SearchForAppsUseCase
+import fuwafuwa.time.core.model.app.App
 import fuwafuwa.time.core.mvi.impl.BaseModel
 import fuwafuwa.time.core_data.entity.app.toModel
 import fuwafuwa.time.core_data.entity.permission.toModel
 import fuwafuwa.time.utli.permission.UsageStatsPermission
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +27,13 @@ class AppsInfoModel @Inject constructor(
     init {
         scope.launch {
             updateAppsUseCase.apps.collect { apps ->
-                updateState { copy(apps = apps.map { it.toModel() }) }
+                updateState {
+                    val modelApps = apps.map { it.toModel() }
+                    copy(
+                        apps = modelApps,
+                        alteredApps = modelApps
+                    )
+                }
             }
         }
 
@@ -54,38 +61,51 @@ class AppsInfoModel @Inject constructor(
             }
 
             is SearchForApps -> scope.launch {
-                updateState { copy(searchInProgress = true) }
-                val searchedApps = searchForAppsUseCase.search(action.searchString)
+                val searchStartState = updateState {
+                    copy(
+                        searchInProgress = true,
+                        searchString = action.searchString
+                    )
+                }
+                searchStartState.join()
+
+                val searchedApps = state.value.apps
+                    .applySearch()
+                    .applyFilters()
+
                 updateState {
                     copy(
-                        searchString = action.searchString,
-                        filteredApps = searchedApps,
+                        alteredApps = searchedApps,
                         searchInProgress = false
                     )
                 }
             }
 
             is ChangeSortingProperty -> scope.launch {
-                updateState { copy(sortingProperties = action.sortingProperties) }
-                delay(300L)
-                onAction(SortApps)
+                updateState {
+                    copy(sortingProperties = action.sortingProperties).also {
+                        onAction(SortApps)
+                    }
+                }
             }
 
             is SortApps -> scope.launch {
-                val apps = if (state.value.filteredApps.isNotEmpty()) {
-                    state.value .filteredApps
-                } else {
-                    state.value.apps
-                }
-                val sortedApps = sortingAppsUseCase.sort(
-                    apps,
-                    state.value.sortingProperties
-                )
+                val sortedApps = state.value.apps
+                    .applyFilters()
+                    .applySearch()
 
                 updateState {
-                    copy(sortedApps = sortedApps)
+                    copy(alteredApps = sortedApps)
                 }
             }
         }
+    }
+
+    private fun List<App>.applyFilters(): List<App> {
+        return sortingAppsUseCase.sort(this, state.value.sortingProperties)
+    }
+
+    private fun List<App>.applySearch(): List<App> {
+        return searchForAppsUseCase.search(this, state.value.searchString)
     }
 }

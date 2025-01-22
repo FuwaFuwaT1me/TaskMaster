@@ -26,9 +26,8 @@ interface AppsInfoModule {
                 permissionConfig = PermissionConfig.Builder().build(),
                 searchString = "",
                 sortingProperties = SorterProvider().provide(),
-                filteredApps = emptyList(),
                 searchInProgress = false,
-                sortedApps = emptyList()
+                alteredApps = emptyList()
             )
         }
 

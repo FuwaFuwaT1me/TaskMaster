@@ -70,7 +70,7 @@ fun AppItem(
         ) {
             if (isNameExist) {
                 Text(
-                    text = app.name ?: "", // Never null here
+                    text = app.name,
                     fontWeight = FontWeight.Bold
                 )
             }

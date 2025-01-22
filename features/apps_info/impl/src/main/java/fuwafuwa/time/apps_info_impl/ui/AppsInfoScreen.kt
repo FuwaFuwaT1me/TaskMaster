@@ -52,13 +52,7 @@ fun AppsInfoScreen(
     val context = LocalContext.current
     var showFilters by remember { mutableStateOf(false) }
 
-    val apps = if (state.searchString.isNotEmpty()) {
-        state.filteredApps
-    } else if (state.sortedApps.isNotEmpty()) {
-        state.sortedApps
-    } else {
-        state.apps
-    }
+    val apps = state.alteredApps
 
     LaunchedEffect(Unit) {
         if (state.permissionConfig.usageStatsPermission) {
@@ -142,10 +136,11 @@ fun AppsInfoScreen(
                         modifier = Modifier.padding(horizontal = 12.dp),
                         sorters = state.sortingProperties,
                         onSorterSelected = { sorter ->
-                            val changedIndex = state.sortingProperties.indexOf(sorter)
-                            val newSortingProperties = state.sortingProperties.mapIndexed { index, sortingProperty ->
-                                if (index == changedIndex) {
-                                    sortingProperty.copy(sortingDirection = sortingProperty.sortingDirection.proceedType())
+                            val newSortingProperties = state.sortingProperties.map { sortingProperty ->
+                                if (sortingProperty == sorter) {
+                                    sortingProperty.copy(
+                                        sortingDirection = sortingProperty.sortingDirection.proceedType()
+                                    )
                                 } else {
                                     sortingProperty
                                 }

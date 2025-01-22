@@ -1,11 +1,10 @@
 package fuwafuwa.time.core_data.entity.sorting
 
 import fuwafuwa.time.core.model.app.App
-import kotlin.reflect.KProperty1
 
 sealed interface SortingType {
 
-    val field: KProperty1<App, Comparable<*>>
+    val field: (App) -> Comparable<*>
     val name: String
 
     fun getComparator(sortingDirection: SortingDirection): Comparator<App>? {
@@ -18,13 +17,17 @@ sealed interface SortingType {
 
     data object Size : SortingType {
 
-        override val field = App::totalSize
+        override val field: (App) -> Comparable<*> = { app ->
+            app.totalSize
+        }
         override val name = "size"
     }
 
     data object Name : SortingType {
 
-        override val field = App::name
+        override val field: (App) -> Comparable<*> = { app ->
+            app.name.lowercase()
+        }
         override val name = "name"
     }
 }

@@ -56,7 +56,10 @@ class AppsProvider @Inject constructor(
     }
 
     private fun getAppName(appInfo: ApplicationInfo): String {
-        return appInfo.loadLabel(packageManager).toString()
+        val label = appInfo.loadLabel(packageManager).toString()
+        return label.ifEmpty {
+            appInfo.packageName
+        }
     }
 
     private fun getIconImagePath(appInfo: ApplicationInfo): String {

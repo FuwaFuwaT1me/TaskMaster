@@ -10,7 +10,6 @@ data class AppsInfoState(
     val permissionConfig: PermissionConfig,
     val searchString: String,
     val sortingProperties: List<AppSortingProperty>,
-    val filteredApps: List<App>,
     val searchInProgress: Boolean,
-    val sortedApps: List<App>
+    val alteredApps: List<App>
 ) : State

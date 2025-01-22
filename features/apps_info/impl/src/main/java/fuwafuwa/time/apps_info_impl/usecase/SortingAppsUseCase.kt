@@ -22,7 +22,7 @@ class SortingAppsUseCase @Inject constructor() {
                 sortingProperty.sortingDirection
             )
             newComparator?.let {
-                acc?.then(newComparator) ?: newComparator
+                acc?.then(it) ?: it
             } ?: acc
         }
     }

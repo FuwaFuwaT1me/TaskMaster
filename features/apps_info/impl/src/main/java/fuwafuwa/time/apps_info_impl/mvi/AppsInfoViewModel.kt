@@ -17,19 +17,19 @@ class AppsInfoViewModel @Inject constructor(
 
     fun updateApps() {
         viewModelScope.launch(Dispatchers.IO) {
-            model.onAction(UpdateAppsAction)
+            sendAction(UpdateAppsAction)
         }
     }
 
     fun grantUsageStatsPermission(activity: ComponentActivity) {
         viewModelScope.launch {
-            model.onAction(GrantUsageStatsPermission(activity))
+            sendAction(GrantUsageStatsPermission(activity))
         }
     }
 
     fun searchForApps(searchString: String) {
         viewModelScope.launch {
-            model.onAction(SearchForApps(searchString))
+            sendAction(SearchForApps(searchString))
         }
     }
 }
