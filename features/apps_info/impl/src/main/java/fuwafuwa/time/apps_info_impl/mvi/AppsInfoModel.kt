@@ -90,11 +90,11 @@ class AppsInfoModel @Inject constructor(
             }
 
             is SortApps -> scope.launch {
-                val sortedApps = state.value.apps
-                    .applyFilters()
-                    .applySearch()
-
                 updateState {
+                    val sortedApps = state.value.apps
+                        .applyFilters()
+                        .applySearch()
+
                     copy(alteredApps = sortedApps)
                 }
             }
