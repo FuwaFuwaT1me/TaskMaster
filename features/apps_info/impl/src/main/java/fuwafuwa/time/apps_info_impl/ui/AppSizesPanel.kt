@@ -15,6 +15,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fuwafuwa.time.core.model.app.App
+import fuwafuwa.time.core.model.app.AppSize
+import fuwafuwa.time.core.model.app.CacheSize
+import fuwafuwa.time.core.model.app.DataSize
 import fuwafuwa.time.core_compose.theme.GrayBlue
 import fuwafuwa.time.utli.data.DataConverter
 
@@ -23,7 +26,7 @@ fun AppSizeBar(
     modifier: Modifier,
     app: App
 ) {
-    val totalSize = app.appSize + app.dataSize + app.cacheSize
+    val totalSize = app.appSize.size + app.dataSize.size + app.cacheSize.size
     val displayedDataUnit = DataConverter.convertBytesToNearestType(totalSize)
 
     Box(
@@ -55,9 +58,9 @@ fun AppSizeBarPreview() {
             packageName = "k.on.fuwafuwatime",
             processName = "k.process.on",
             apkSize = 1256,
-            appSize = 1,
-            dataSize = 2,
-            cacheSize = 3,
+            appSize = AppSize(1),
+            dataSize = DataSize(2),
+            cacheSize = CacheSize(3),
             totalSize = 123,
             iconPath = "",
             versionName = "1.25.7.8.20",

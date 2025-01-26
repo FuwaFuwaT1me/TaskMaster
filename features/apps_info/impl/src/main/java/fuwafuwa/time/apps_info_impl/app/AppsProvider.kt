@@ -8,6 +8,9 @@ import android.os.Build
 import androidx.core.graphics.drawable.toBitmap
 import dagger.hilt.android.qualifiers.ApplicationContext
 import fuwafuwa.time.core.model.app.App
+import fuwafuwa.time.core.model.app.AppSize
+import fuwafuwa.time.core.model.app.CacheSize
+import fuwafuwa.time.core.model.app.DataSize
 import fuwafuwa.time.utli.bitmap.saveAsPngToFile
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -36,9 +39,9 @@ class AppsProvider @Inject constructor(
                         packageName = appInfo.packageName,
                         processName = appInfo.processName,
                         apkSize = getFolderSizeMb(appInfo.sourceDir),
-                        appSize = storageStats.appBytes,
-                        dataSize = (storageStats.dataBytes - storageStats.cacheBytes),
-                        cacheSize = storageStats.cacheBytes,
+                        appSize = AppSize(storageStats.appBytes),
+                        dataSize = DataSize(storageStats.dataBytes - storageStats.cacheBytes),
+                        cacheSize = CacheSize(storageStats.cacheBytes),
                         totalSize = storageStats.appBytes + storageStats.dataBytes,
                         iconPath = getIconImagePath(appInfo),
                         versionName = packageInfo.versionName,

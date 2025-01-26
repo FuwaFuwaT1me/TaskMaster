@@ -27,6 +27,9 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import fuwafuwa.time.core.model.app.App
+import fuwafuwa.time.core.model.app.AppSize
+import fuwafuwa.time.core.model.app.CacheSize
+import fuwafuwa.time.core.model.app.DataSize
 import fuwafuwa.time.core_compose.theme.LightGrayBlue
 import fuwafuwa.time.utli.bitmap.saveAsPngToFile
 import java.io.File
@@ -118,9 +121,9 @@ fun AppItemPreview() {
             packageName = "k.on.fuwafuwatime",
             processName = "k.process.on",
             apkSize = 1256,
-            appSize = 388,
-            dataSize = 3821,
-            cacheSize = 421238,
+            appSize = AppSize(388),
+            dataSize = DataSize(3821),
+            cacheSize = CacheSize(421238),
             totalSize = 123123,
             iconPath = file.absolutePath,
             versionName = "1.25.7.8.20",
