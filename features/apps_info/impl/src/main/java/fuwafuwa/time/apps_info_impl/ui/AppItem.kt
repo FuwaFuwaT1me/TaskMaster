@@ -8,7 +8,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -17,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -37,6 +35,7 @@ import java.io.File
 @Composable
 fun AppItem(
     app: App,
+    onAppSizesBarClick: () -> Unit,
     onClick: () -> Unit
 ) {
     val isNameExist = app.name != app.packageName
@@ -94,7 +93,8 @@ fun AppItem(
         AppSizeBar(
             modifier = Modifier
                 .align(Alignment.CenterVertically),
-            app = app
+            app = app,
+            onClick = onAppSizesBarClick
         )
 
         Spacer(modifier = Modifier.width(8.dp))
@@ -128,6 +128,7 @@ fun AppItemPreview() {
             iconPath = file.absolutePath,
             versionName = "1.25.7.8.20",
             versionCode = 256
-        )
+        ),
+        onAppSizesBarClick = {}
     ) {}
 }

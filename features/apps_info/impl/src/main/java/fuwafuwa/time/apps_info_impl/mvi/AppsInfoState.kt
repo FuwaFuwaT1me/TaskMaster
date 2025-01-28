@@ -11,5 +11,7 @@ data class AppsInfoState(
     val searchString: String,
     val sortingProperties: List<AppSortingProperty>,
     val searchInProgress: Boolean,
-    val alteredApps: List<App>
+    val alteredApps: List<App>,
+    val isAppSizeDialogDisplayed: Boolean,
+    val appSizeDialogApp: App?
 ) : State

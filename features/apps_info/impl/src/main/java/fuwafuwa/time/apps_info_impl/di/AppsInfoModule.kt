@@ -27,7 +27,9 @@ interface AppsInfoModule {
                 searchString = "",
                 sortingProperties = SorterProvider().provide(),
                 searchInProgress = false,
-                alteredApps = emptyList()
+                alteredApps = emptyList(),
+                isAppSizeDialogDisplayed = false,
+                appSizeDialogApp = null
             )
         }
 

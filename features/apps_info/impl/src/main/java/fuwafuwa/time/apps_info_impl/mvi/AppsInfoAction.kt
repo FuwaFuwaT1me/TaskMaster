@@ -1,6 +1,7 @@
 package fuwafuwa.time.apps_info_impl.mvi
 
 import androidx.activity.ComponentActivity
+import fuwafuwa.time.core.model.app.App
 import fuwafuwa.time.core.mvi.api.Action
 import fuwafuwa.time.core_data.entity.sorting.AppSortingProperty
 
@@ -21,3 +22,9 @@ data class ChangeSortingProperty(
 ) : AppsInfoAction
 
 data object SortApps : AppsInfoAction
+
+data class ShowAppSizeDialog(
+    val app: App
+) : AppsInfoAction
+
+data object HideAppSizeDialog : AppsInfoAction

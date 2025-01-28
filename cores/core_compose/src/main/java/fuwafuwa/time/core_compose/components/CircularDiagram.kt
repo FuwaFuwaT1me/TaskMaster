@@ -12,7 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -30,7 +29,8 @@ data class ChartPart(
 @Composable
 fun CircularDiagram(
     parts: List<ChartPart>,
-    strokeWidth: Float,
+    modifier: Modifier = Modifier,
+    strokeWidth: Float = 0f,
     useCenter: Boolean = false
 ) {
     var animationPlayed by remember {
@@ -49,10 +49,10 @@ fun CircularDiagram(
     }
 
     Box(
-        modifier = Modifier.size(300.dp)
+        modifier = modifier
     ) {
         Canvas(
-            modifier = Modifier.size(200.dp).align(Alignment.Center)
+            modifier = modifier
         ) {
             var currentEnd = 0f
             parts.forEach { part ->
@@ -95,6 +95,7 @@ fun Float.mapValueToDifferentRange(
 @Composable
 fun PreviewCircularDiagram() {
     CircularDiagram(
+        modifier = Modifier.size(150.dp),
         parts = listOf(
             ChartPart(12f, Color(0xfff65e58)),
             ChartPart(38f, Color(0xff1b3361)),

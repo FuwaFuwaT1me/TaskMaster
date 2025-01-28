@@ -1,6 +1,5 @@
 package fuwafuwa.time.apps_info_impl.mvi
 
-import android.util.Log
 import fuwafuwa.time.apps_info_api.navigation.AppsInfoNavEvent
 import fuwafuwa.time.apps_info_impl.usecase.SortingAppsUseCase
 import fuwafuwa.time.apps_info_impl.usecase.UpdateAppsUseCase
@@ -96,6 +95,24 @@ class AppsInfoModel @Inject constructor(
                         .applySearch()
 
                     copy(alteredApps = sortedApps)
+                }
+            }
+
+            is ShowAppSizeDialog -> scope.launch {
+                updateState {
+                    copy(
+                        isAppSizeDialogDisplayed = true,
+                        appSizeDialogApp = action.app
+                    )
+                }
+            }
+
+            HideAppSizeDialog -> scope.launch {
+                updateState {
+                    copy(
+                        isAppSizeDialogDisplayed = false,
+                        appSizeDialogApp = null
+                    )
                 }
             }
         }

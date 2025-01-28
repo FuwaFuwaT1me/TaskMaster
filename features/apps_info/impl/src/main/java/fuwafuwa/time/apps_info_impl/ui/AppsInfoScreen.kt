@@ -37,9 +37,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import fuwafuwa.time.apps_info_impl.R
 import fuwafuwa.time.apps_info_impl.mvi.AppsInfoViewModel
 import fuwafuwa.time.apps_info_impl.mvi.ChangeSortingProperty
+import fuwafuwa.time.apps_info_impl.mvi.HideAppSizeDialog
+import fuwafuwa.time.apps_info_impl.mvi.ShowAppSizeDialog
 import fuwafuwa.time.core_compose.theme.GrayBlue
 import fuwafuwa.time.core_data.entity.sorting.proceedType
 import fuwafuwa.time.utli.context.getActivity
@@ -188,11 +192,32 @@ fun AppsInfoScreen(
                         }
 
                         items(apps) { app ->
-                            AppItem(app = app) {
+                            AppItem(
+                                app,
+                                onAppSizesBarClick = {
+                                    viewModel.sendAction(ShowAppSizeDialog(app))
+                                }
+                            ) {
                                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                                 intent.setData(Uri.parse("package:${app.packageName}"))
                                 context.startActivity(intent)
                             }
+                        }
+                    }
+                }
+
+                if (state.isAppSizeDialogDisplayed) {
+                    state.appSizeDialogApp?.let { app ->
+                        Dialog(
+                            onDismissRequest = {
+                                viewModel.sendAction(HideAppSizeDialog)
+                            },
+                            properties = DialogProperties(
+                                dismissOnBackPress = true,
+                                dismissOnClickOutside = true
+                            )
+                        ) {
+                            AppSizeDialog(app)
                         }
                     }
                 }

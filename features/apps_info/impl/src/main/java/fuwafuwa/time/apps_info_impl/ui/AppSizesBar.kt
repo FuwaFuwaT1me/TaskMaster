@@ -3,6 +3,7 @@ package fuwafuwa.time.apps_info_impl.ui
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,7 +25,8 @@ import fuwafuwa.time.utli.data.DataConverter
 @Composable
 fun AppSizeBar(
     modifier: Modifier,
-    app: App
+    app: App,
+    onClick: () -> Unit
 ) {
     val totalSize = app.appSize.size + app.dataSize.size + app.cacheSize.size
     val displayedDataUnit = DataConverter.convertBytesToNearestType(totalSize)
@@ -36,6 +38,9 @@ fun AppSizeBar(
                 shape = RoundedCornerShape(8.dp)
             )
             .background(Color.White, shape = RoundedCornerShape(8.dp))
+            .clickable {
+                onClick()
+            }
             .padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
         Text(
@@ -65,6 +70,7 @@ fun AppSizeBarPreview() {
             iconPath = "",
             versionName = "1.25.7.8.20",
             versionCode = 256
-        )
+        ),
+        onClick = {}
     )
 }
