@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlinx-serialization")
 }
 
 android {
-    namespace = "fuwafuwa.time.apps_info"
+    namespace = "fuwafuwa.time.hub_api"
     compileSdk = 35
 
     defaultConfig {
@@ -20,6 +21,9 @@ android {
 }
 
 dependencies {
+    implementation(projects.core)
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

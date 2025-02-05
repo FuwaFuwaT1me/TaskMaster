@@ -53,16 +53,19 @@ android {
 
 dependencies {
     // Cores
-    implementation(project(":core"))
-    implementation(project(":core_data"))
-    implementation(project(":core_compose"))
+    implementation(projects.core)
+    implementation(projects.coreData)
+    implementation(projects.coreCompose)
 
     // Features
-    implementation(project(":apps_info:api"))
-    implementation(project(":apps_info:impl"))
+    implementation(projects.appsInfo.api)
+    implementation(projects.appsInfo.impl)
+
+    implementation(projects.hub.api)
+    implementation(projects.hub.impl)
 
     // Util
-    implementation(project(":util"))
+    implementation(projects.util)
 
     implementation("com.google.dagger:hilt-android:2.50")
     implementation("androidx.room:room-ktx:2.6.1")

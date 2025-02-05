@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core"))
+    implementation(projects.core)
 
     implementation("com.google.code.gson:gson:2.10.1")
 
