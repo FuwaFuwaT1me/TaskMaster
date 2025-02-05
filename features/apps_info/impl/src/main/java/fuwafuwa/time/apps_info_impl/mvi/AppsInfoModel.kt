@@ -7,6 +7,7 @@ import fuwafuwa.time.apps_info_impl.usecase.GetPermissionConfigUseCase
 import fuwafuwa.time.apps_info_impl.usecase.SearchForAppsUseCase
 import fuwafuwa.time.core.model.app.App
 import fuwafuwa.time.core.mvi.impl.BaseModel
+import fuwafuwa.time.core.mvi.impl.BaseNavigationEvent
 import fuwafuwa.time.core_data.entity.app.toModel
 import fuwafuwa.time.core_data.entity.permission.toModel
 import fuwafuwa.time.utli.permission.UsageStatsPermission
@@ -19,7 +20,7 @@ class AppsInfoModel @Inject constructor(
     private val getPermissionConfigUseCase: GetPermissionConfigUseCase,
     private val searchForAppsUseCase: SearchForAppsUseCase,
     private val sortingAppsUseCase: SortingAppsUseCase
-) : BaseModel<AppsInfoState, AppsInfoAction, AppsInfoNavEvent>(
+) : BaseModel<AppsInfoState, AppsInfoAction>(
     defaultViewState
 ) {
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fuwafuwa.time.apps_info_api.navigation.AppsInfoNavEvent
 import fuwafuwa.time.apps_info_impl.usecase.SearchForAppsUseCase
+import fuwafuwa.time.core.mvi.impl.BaseNavigationEvent
 import fuwafuwa.time.core.mvi.impl.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AppsInfoViewModel @Inject constructor(
     override val model: AppsInfoModel
-) : BaseViewModel<AppsInfoAction, AppsInfoState, AppsInfoNavEvent>() {
+) : BaseViewModel<AppsInfoAction, AppsInfoState>() {
 
     fun updateApps() {
         viewModelScope.launch(Dispatchers.IO) {

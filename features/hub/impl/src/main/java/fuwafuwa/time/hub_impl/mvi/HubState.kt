@@ -1,8 +1,8 @@
 package fuwafuwa.time.hub_impl.mvi
 
 import fuwafuwa.time.core.mvi.api.State
-import fuwafuwa.time.hub.Screen
+import fuwafuwa.time.hub_impl.HubScreenInfo
 
 data class HubState(
-    val screens: List<Screen>
+    val hubScreenInfos: List<HubScreenInfo>
 ) : State

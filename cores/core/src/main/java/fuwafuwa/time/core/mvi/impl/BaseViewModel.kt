@@ -13,13 +13,12 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<UiAction, UiState, NavEvent> : ViewModel()
+abstract class BaseViewModel<UiAction, UiState> : ViewModel()
         where UiAction : Action,
-              UiState : State,
-              NavEvent : NavigationEvent
+              UiState : State
 {
 
-    abstract val model: Model<UiState, UiAction, NavEvent>
+    abstract val model: Model<UiState, UiAction, BaseNavigationEvent>
 
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     private val actionFlow: ActionFlow<UiAction> = BaseActionFlow(scope)
@@ -37,7 +36,7 @@ abstract class BaseViewModel<UiAction, UiState, NavEvent> : ViewModel()
         }
     }
 
-    fun sendNavigationEvent(navEvent: NavEvent) {
+    fun sendNavigationEvent(navEvent: BaseNavigationEvent) {
         model.sendNavigationEvent(navEvent)
     }
 

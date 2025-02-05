@@ -1,9 +1,9 @@
-package fuwafuwa.time.hub
+package fuwafuwa.time.hub_impl
 
 class ScreensProvider {
 
-    fun get(): List<Screen> = listOf(
-        Screen.APPS_INFO,
-        Screen.PROCESSES
+    fun get(): List<HubScreenInfo> = listOf(
+        HubScreenInfo.AppsInfo,
+        HubScreenInfo.Processes
     )
 }

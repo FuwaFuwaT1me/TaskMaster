@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import fuwafuwa.time.hub.ScreensProvider
+import fuwafuwa.time.hub_impl.ScreensProvider
 import fuwafuwa.time.hub_impl.mvi.HubState
 import javax.inject.Singleton
 
@@ -18,7 +18,7 @@ interface HubModule {
         @Provides
         fun provideDefaultState(): HubState {
             return HubState(
-                screens = ScreensProvider().get()
+                hubScreenInfos = ScreensProvider().get()
             )
         }
     }

@@ -15,5 +15,5 @@ sealed interface BaseNavigationEvent : NavigationEvent {
         val route: String
     }
 
-    interface NavigateBack : BaseNavigationEvent
+    data object NavigateBack : BaseNavigationEvent
 }

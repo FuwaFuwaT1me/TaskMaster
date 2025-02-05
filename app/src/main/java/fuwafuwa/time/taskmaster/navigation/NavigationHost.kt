@@ -16,7 +16,7 @@ fun NavigationHost() {
 
     NavHost(
         navController = navController,
-        startDestination = AppsInfoNavScreen
+        startDestination = HubNavScreen
     ) {
         hubNavScenario(navController)
         appsInfoNavScenario(navController)

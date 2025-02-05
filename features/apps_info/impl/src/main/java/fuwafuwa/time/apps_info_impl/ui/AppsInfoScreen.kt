@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -44,6 +46,7 @@ import fuwafuwa.time.apps_info_impl.mvi.AppsInfoViewModel
 import fuwafuwa.time.apps_info_impl.mvi.ChangeSortingProperty
 import fuwafuwa.time.apps_info_impl.mvi.HideAppSizeDialog
 import fuwafuwa.time.apps_info_impl.mvi.ShowAppSizeDialog
+import fuwafuwa.time.core.mvi.impl.BaseNavigationEvent
 import fuwafuwa.time.core_compose.theme.GrayBlue
 import fuwafuwa.time.core_data.entity.sorting.proceedType
 import fuwafuwa.time.utli.context.getActivity
@@ -106,6 +109,26 @@ fun AppsInfoScreen(
                         .padding(vertical = 8.dp, horizontal = 12.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
+                    Button(
+                        modifier = Modifier.height(52.dp)
+                            .width(52.dp),
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = GrayBlue
+                        ),
+                        contentPadding = PaddingValues(0.dp),
+                        onClick = {
+                            viewModel.sendNavigationEvent(BaseNavigationEvent.NavigateBack)
+                        }
+                    ) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            "",
+                            modifier = Modifier.size(28.dp),
+                            tint = Color.White
+                        )
+                    }
+
                     SearchBar(
                         modifier = Modifier.weight(1f)
                             .height(52.dp),

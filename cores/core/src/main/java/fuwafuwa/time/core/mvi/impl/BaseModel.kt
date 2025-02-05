@@ -16,22 +16,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalCoroutinesApi::class)
-abstract class BaseModel<UiState, UiAction, NavEvent>(
+abstract class BaseModel<UiState, UiAction>(
     defaultViewState: UiState,
     protected val scope: CoroutineScope = CoroutineScope(Dispatchers.Default.limitedParallelism(1)),
     private val uiStateFlow: UiStateFlow<UiState> = BaseUiStateFlow(defaultViewState),
-    private val navigationEventFlow: NavigationEventFlow<NavEvent> = BaseNavigationEventFlow(scope)
-) : Model<UiState, UiAction, NavEvent>
+    private val navigationEventFlow: NavigationEventFlow<BaseNavigationEvent> = BaseNavigationEventFlow(scope)
+) : Model<UiState, UiAction, BaseNavigationEvent>
     where UiState : State,
-          UiAction : Action,
-          NavEvent : NavigationEvent {
+          UiAction : Action {
 
     override val state: StateFlow<UiState>
         get() = uiStateFlow.state
-    override val navigationEvent: Flow<NavEvent>
+    override val navigationEvent: Flow<BaseNavigationEvent>
         get() = navigationEventFlow.navigationEvent
 
-    override fun sendNavigationEvent(navEvent: NavEvent) {
+    override fun sendNavigationEvent(navEvent: BaseNavigationEvent) {
         navigationEventFlow.sendNavigationEvent(navEvent)
     }
 

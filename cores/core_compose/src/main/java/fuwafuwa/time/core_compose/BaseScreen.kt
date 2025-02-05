@@ -18,7 +18,7 @@ import fuwafuwa.time.core.mvi.impl.BaseViewModel
 @Composable
 fun BaseScreen(
     navController: NavController,
-    viewModel: BaseViewModel<out Action, out State, out NavigationEvent>,
+    viewModel: BaseViewModel<out Action, out State>,
     content: @Composable (NavController) -> Unit
 ) {
     LaunchedEffect(Unit) {
